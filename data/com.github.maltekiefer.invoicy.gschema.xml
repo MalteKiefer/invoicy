@@ -1,0 +1,49 @@
+<schemalist>
+	<schema id="com.github.maltekiefer.invoicy" path="/com/github/maltekiefer/invoicy/">
+		<key name="currency-symbole" type="s">
+			<default>"$"</default>
+			<summary>Currency Symbole</summary>
+			<description>The currency symbole</description>
+		</key>
+		<key name="currency-symbole-position" type="u">
+			<default>0</default>
+			<summary>Currency Symbole Position</summary>
+			<description>Position of the currency symbole (0 = left / 1 = right)</description>
+		</key>
+		<key name="company-name" type="s">
+			<default>""</default>
+			<summary>Company Name</summary>
+			<description>The name of your company</description>
+		</key>
+		<key name="company-contact" type="s">
+			<default>""</default>
+			<summary>Company Contact</summary>
+			<description>The contact of your company</description>
+		</key>
+		<key name="company-street" type="s">
+			<default>""</default>
+			<summary>Company Street</summary>
+			<description>The street of your company</description>
+		</key>
+		<key name="company-city" type="s">
+			<default>""</default>
+			<summary>Company City</summary>
+			<description>The city of your company</description>
+		</key>
+		<key name="company-zip" type="s">
+			<default>""</default>
+			<summary>Company Zip</summary>
+			<description>The zip of your company</description>
+		</key>
+		<key name="company-country" type="s">
+			<default>""</default>
+			<summary>Company Country</summary>
+			<description>The country of your company</description>
+		</key>
+		<key name="company-vat" type="s">
+			<default>""</default>
+			<summary>Company VAT</summary>
+			<description>The VAT of your company</description>
+		</key>
+	</schema>
+</schemalist>
