@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-02-10 20:35+0100\n"
+"POT-Creation-Date: 2020-02-10 21:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,6 +14,54 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
 
+
+#: app.py:52
+msgid "<big><b>Settings</b></big>"
+msgstr ""
+
+#: app.py:54
+msgid "<b>Company</b>"
+msgstr ""
+
+#: app.py:56
+msgid "<b>Finance</b>"
+msgstr ""
+
+#: app.py:58
+msgid "Company"
+msgstr ""
+
+#: app.py:62
+msgid "Contact"
+msgstr ""
+
+#: app.py:66
+msgid "Street"
+msgstr ""
+
+#: app.py:70
+msgid "ZIP"
+msgstr ""
+
+#: app.py:74
+msgid "City"
+msgstr ""
+
+#: app.py:78
+msgid "Country"
+msgstr ""
+
+#: app.py:82
+msgid "VAT"
+msgstr ""
+
+#: app.py:86
+msgid "Currency Symbole"
+msgstr ""
+
+#: app.py:90
+msgid "Currency Symbole Position"
+msgstr ""
 
 #: app.py:92
 msgid "Left"

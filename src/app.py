@@ -49,45 +49,45 @@ class Invoicy(Gtk.Window):
         grid.props.margin_bottom = 20
 
         header = Gtk.Label()
-        header.set_markup("<big><b>Settings</b></big>")
+        header.set_markup(_("<big><b>Settings</b></big>"))
         header_company = Gtk.Label()
-        header_company.set_markup("<b>Company</b>")
+        header_company.set_markup(_("<b>Company</b>"))
         finance_company = Gtk.Label()
-        finance_company.set_markup("<b>Finance</b>")
+        finance_company.set_markup(_("<b>Finance</b>"))
 
-        companyname_label = Gtk.Label("Company")
+        companyname_label = Gtk.Label(_("Company"))
         companyname_entry = Gtk.Entry()
         companyname_entry.set_text(settings.get_string('company-name'))
 
-        companycontact_label = Gtk.Label("Contact")
+        companycontact_label = Gtk.Label(_("Contact"))
         companycontact_entry = Gtk.Entry()
         companycontact_entry.set_text(settings.get_string('company-contact'))
 
-        companystreet_label = Gtk.Label("Street")
+        companystreet_label = Gtk.Label(_("Street"))
         companystreet_entry = Gtk.Entry()
         companystreet_entry.set_text(settings.get_string('company-street'))
 
-        companyzip_label = Gtk.Label("ZIP")
+        companyzip_label = Gtk.Label(_("ZIP"))
         companyzip_entry = Gtk.Entry()
         companyzip_entry.set_text(settings.get_string('company-zip'))
 
-        companycity_label = Gtk.Label("City")
+        companycity_label = Gtk.Label(_("City"))
         companycity_entry = Gtk.Entry()
         companycity_entry.set_text(settings.get_string('company-city'))
 
-        companycountry_label = Gtk.Label("Country")
+        companycountry_label = Gtk.Label(_("Country"))
         companycountry_entry = Gtk.Entry()
         companycountry_entry.set_text(settings.get_string('company-country'))
 
-        companyvat_label = Gtk.Label("VAT")
+        companyvat_label = Gtk.Label(_("VAT"))
         companyvat_entry = Gtk.Entry()
         companyvat_entry.set_text(settings.get_string('company-vat'))
 
-        financecurrency_label = Gtk.Label("Currency Symbole")
+        financecurrency_label = Gtk.Label(_("Currency Symbole"))
         financecurrency_entry = Gtk.Entry()
         financecurrency_entry.set_text(settings.get_string('currency-symbole'))
 
-        financecurrencyposition_label = Gtk.Label("Currency Symbole Position")
+        financecurrencyposition_label = Gtk.Label(_("Currency Symbole Position"))
         financecurrencyposition_combo = Gtk.ComboBoxText()
         financecurrencyposition_combo.insert(0, "0", _("Left"))
         financecurrencyposition_combo.insert(1, "1", _("Right"))
@@ -148,6 +148,7 @@ class Invoicy(Gtk.Window):
         return None 
 
     def __init__(self):
+        
         Gtk.Window.__init__(self, title="Invoicy")
         self.set_border_width = 10
         self.set_default_size(800, 600)
