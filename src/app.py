@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2011-2018 Kiefer Networks (https://kiefer-networks.de)
+# Copyright (c) 2020 Kiefer Networks (https://kiefer-networks.de)
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public
@@ -158,12 +158,18 @@ class Invoicy(Gtk.Window):
         header_bar.props.title = "Invoicy"
         self.set_titlebar(header_bar)
 
-        newbutton = Gtk.Button(None,image=Gtk.Image(stock=Gtk.STOCK_NEW))
+        newbutton = Gtk.Button(None,image=Gtk.Image.new_from_gicon(Gio.ThemedIcon(name="document-new"), Gtk.IconSize.LARGE_TOOLBAR))
         header_bar.pack_start(newbutton)
 
-        menubutton = Gtk.Button(None,image=Gtk.Image(stock=Gtk.STOCK_PROPERTIES))
+        menubutton = Gtk.Button(None,image=Gtk.Image.new_from_gicon(Gio.ThemedIcon(name="open-menu"), Gtk.IconSize.LARGE_TOOLBAR))
         menubutton.connect("clicked", self.settingsdialog)
         header_bar.pack_end(menubutton)
+
+        page1 = Gtk.Box()
+        page1.set_border_width(10)
+        page1.add(Gtk.Label('Default Page!'))
+
+        self.add(page1)
 
 win = Invoicy()
 win.connect("destroy", Gtk.main_quit)
