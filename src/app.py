@@ -91,7 +91,7 @@ class Invoicy(Gtk.Window):
         financecurrencyposition_combo = Gtk.ComboBoxText()
         financecurrencyposition_combo.insert(0, "0", _("Left"))
         financecurrencyposition_combo.insert(1, "1", _("Right"))
-        financecurrencyposition_combo.set_active(settings.get_int('currency-symbole-position'))
+        financecurrencyposition_combo.set_active(settings.get_uint('currency-symbole-position'))
 
         grid.add(header)
         grid.attach(header_company, 0, 1, 2, 1)
@@ -143,9 +143,11 @@ class Invoicy(Gtk.Window):
             settings.set_string ('company-country', companycountry)
             settings.set_string ('company-vat', companyvat_entry)
             settings.set_string ('currency-symbole', financecurrency)
-            settings.set_int ('currency-symbole-position', financecurrencyposition)
+            settings.set_uint ('currency-symbole-position', financecurrencyposition)
             
         return None 
+
+
 
     def __init__(self):
         
@@ -162,14 +164,27 @@ class Invoicy(Gtk.Window):
         header_bar.pack_start(newbutton)
 
         menubutton = Gtk.Button(None,image=Gtk.Image.new_from_gicon(Gio.ThemedIcon(name="open-menu"), Gtk.IconSize.LARGE_TOOLBAR))
-        menubutton.connect("clicked", self.settingsdialog)
+        menubutton.connect("clicked", self.open_sub_menu)
         header_bar.pack_end(menubutton)
 
-        page1 = Gtk.Box()
-        page1.set_border_width(10)
-        page1.add(Gtk.Label('Default Page!'))
+        self.popover = Gtk.Popover()
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        settings = Gtk.ModelButton(_("Settings"))
+        settings.connect("clicked", self.settingsdialog)
+        vbox.pack_start(settings, False, True, 2)
+        vbox.pack_start(Gtk.ModelButton(_("About")), False, True, 2)
+        self.popover.add(vbox)
+        self.popover.set_position(Gtk.PositionType.BOTTOM)
 
-        self.add(page1)
+        label = Gtk.Label("test")
+
+        self.add(label)
+
+    def open_sub_menu(self, button):
+        self.popover.set_relative_to(button)
+        self.popover.show_all()
+        self.popover.popup()
+
 
 win = Invoicy()
 win.connect("destroy", Gtk.main_quit)
