@@ -11,6 +11,7 @@ except ImportError:
     import invoicy.headerbar as hb
     import invoicy.stack as sk
 
+
 class Window(Gtk.Window):
 
     def __init__(self):

@@ -7,6 +7,7 @@ from gi.repository import Gtk
 class App:
     application_id = "com.github.maltekiefer.invoicy"
     application_name = "invoicy"
+    application_author = "Malte Kiefer"
     application_description = "Create simple and clean invoices at elementaryOS"
     application_version ="1.0.0"
     main_url = "https://github.com/maltekiefer/invoicy"

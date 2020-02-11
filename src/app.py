@@ -81,7 +81,7 @@ class Invoicy(Gtk.Window):
         grid_company.attach(companycontact_label, 0, 2, 1, 1)
         grid_company.attach(companycontact_entry, 1, 2, 1, 1)
         grid_company.attach(companystreet_label, 0, 3, 1, 1)
-        grid_company.attach(companystreet_entry, 1, 4, 1, 1)
+        grid_company.attach(companystreet_entry, 1, 3, 1, 1)
         grid_company.attach(companyzip_label, 0, 4, 1, 1)
         grid_company.attach(companyzip_entry, 1, 4, 1, 1)
         grid_company.attach(companycity_label, 0, 5, 1, 1)
@@ -112,9 +112,9 @@ class Invoicy(Gtk.Window):
         grid_finance.attach(financecurrencyposition_label, 0, 2, 1, 1)
         grid_finance.attach(financecurrencyposition_combo, 1, 2, 1, 1)
 
-        grid_settings = Gtk.Grid(column_spacing=10, row_spacing=10)
         box = dialog.get_content_area()
-        
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
+        box.add(vbox)
 
         stack = Gtk.Stack()
         stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
@@ -126,10 +126,8 @@ class Invoicy(Gtk.Window):
         stack_switcher = Gtk.StackSwitcher()
         stack_switcher.set_stack(stack)
 
-        grid_settings.attach(stack_switcher, 0, 1, 1, 1)
-        grid_settings.attach(stack, 0, 2, 1, 1)
-
-        box.add(grid_settings)  
+        vbox.pack_start(stack_switcher, False, False, 0)
+        vbox.pack_start(stack, False, False, 0)
 
         dialog.show_all()
 
@@ -141,8 +139,6 @@ class Invoicy(Gtk.Window):
         companycity = companycity_entry.get_text()
         companycountry = companycountry_entry.get_text()
         companyvat_entry = companyvat_entry.get_text()
-        financecurrency = financecurrency_entry.get_text()
-        financecurrencyposition = financecurrencyposition_combo.get_active()
         dialog.destroy()
 
         if return_code == Gtk.ResponseType.OK:
@@ -153,15 +149,13 @@ class Invoicy(Gtk.Window):
             settings.set_string ('company-city', companycity)
             settings.set_string ('company-country', companycountry)
             settings.set_string ('company-vat', companyvat_entry)
-            settings.set_string ('currency-symbole', financecurrency)
-            settings.set_uint ('currency-symbole-position', financecurrencyposition)
-            
-        return None 
+
+        return None
 
 
 
     def __init__(self):
-        
+
         Gtk.Window.__init__(self, title="Invoicy")
         self.set_border_width = 10
         self.set_default_size(800, 600)

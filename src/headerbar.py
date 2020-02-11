@@ -32,6 +32,7 @@ class Headerbar(Gtk.HeaderBar):
         self.settings.connect("clicked", di.Dialogs.settingsdialog)
         self.settings_popover_vbox.pack_start(self.settings, False, True, 2)
         self.company = Gtk.ModelButton(_("Company"))
+        self.company.connect("clicked", di.Dialogs.companydialog)
         self.settings_popover_vbox.pack_start(self.company, False, True, 2)
         self.about = Gtk.ModelButton(_("About"))
         self.about.connect("clicked", di.Dialogs.aboutdialog)
