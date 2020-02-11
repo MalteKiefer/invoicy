@@ -6,7 +6,7 @@
 ## Donations
 Feel free to support my work:
 
-<img src="http://img.shields.io/liberapay/receives/beli3ver.svg?logo=liberapay">
+![lib](http://img.shields.io/liberapay/receives/beli3ver.svg?logo=liberapay)
 
 ### Installation
 
