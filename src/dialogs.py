@@ -32,20 +32,25 @@ class Dialogs(Gtk.Box):
         grid_finance.props.margin_top = 20
         grid_finance.props.margin_bottom = 20
 
-        financecurrency_label = Gtk.Label(_("Currency Symbole"))
+        financecurrency_label = Gtk.Label(_("Currency Symbole"), xalign=0)
         financecurrency_entry = Gtk.Entry()
         financecurrency_entry.set_text(settings.get_string('currency-symbole'))
 
-        financecurrencyposition_label = Gtk.Label(_("Currency Symbole Position"))
+        financecurrencyposition_label = Gtk.Label(_("Currency Symbole Position"), xalign=0)
         financecurrencyposition_combo = Gtk.ComboBoxText()
         financecurrencyposition_combo.insert(0, "0", _("Left"))
         financecurrencyposition_combo.insert(1, "1", _("Right"))
         financecurrencyposition_combo.set_active(settings.get_uint('currency-symbole-position'))
+        financetax_label = Gtk.Label(_("Show taxes on the invoice?"), xalign=0)
+        financetax_switch = Gtk.Switch(halign=Gtk.Align.END)
+        financetax_switch.set_active(settings.get_boolean('tax-on-invoice'))
 
         grid_finance.attach(financecurrency_label, 0, 1, 1, 1)
         grid_finance.attach(financecurrency_entry, 1, 1, 1, 1)
         grid_finance.attach(financecurrencyposition_label, 0, 2, 1, 1)
         grid_finance.attach(financecurrencyposition_combo, 1, 2, 1, 1)
+        grid_finance.attach(financetax_label, 0, 3, 1, 1)
+        grid_finance.attach(financetax_switch, 1, 3, 1, 1)
         box = dialog.get_content_area()
 
         box.add(grid_finance)  
@@ -55,11 +60,13 @@ class Dialogs(Gtk.Box):
         return_code = dialog.run ()
         financecurrency = financecurrency_entry.get_text()
         financecurrencyposition = financecurrencyposition_combo.get_active()
+        financetax = financetax_switch.get_active()
         dialog.destroy()
 
         if return_code == Gtk.ResponseType.OK:
             settings.set_string ('currency-symbole', financecurrency)
             settings.set_uint ('currency-symbole-position', financecurrencyposition)
+            settings.set_boolean ('tax-on-invoice', financetax)
 
     def aboutdialog(self):
         about_dialog = Gtk.AboutDialog()

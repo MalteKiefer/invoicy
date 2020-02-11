@@ -10,6 +10,11 @@
 			<summary>Currency Symbole Position</summary>
 			<description>Position of the currency symbole (0 = left / 1 = right)</description>
 		</key>
+		<key name="tax-on-invoice" type="b">
+			<default>true</default>
+			<summary>Show tax on invoice</summary>
+			<description>Show tax on invoice</description>
+		</key>
 		<key name="company-name" type="s">
 			<default>""</default>
 			<summary>Company Name</summary>
