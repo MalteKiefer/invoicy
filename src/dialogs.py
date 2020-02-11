@@ -123,7 +123,7 @@ class Dialogs(Gtk.Box):
         about_dialog.set_authors(cn.App.about_authors)
         about_dialog.set_website(cn.App.main_url)
         about_dialog.set_comments(cn.App.application_description)
-        about_dialog.set_logo(GdkPixbuf.Pixbuf.new_from_file('assets/invoice.png'))
+        about_dialog.set_logo(GdkPixbuf.Pixbuf.new_from_file('src/assets/invoice.png'))
 
         about_dialog.run()
         about_dialog.destroy()

@@ -21,4 +21,3 @@ class Window(Gtk.Window):
 
         self.stack = sk.Stack(self)
         self.add(self.stack)
-

@@ -16,3 +16,9 @@ sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
 ```bash
 python3 src/main.py
 ```
+
+### Screens
+
+![](https://raw.githubusercontent.com/MalteKiefer/invoicy/master/screenshots/screen1.png)
+![](https://raw.githubusercontent.com/MalteKiefer/invoicy/master/screenshots/screen2.png)
+![](https://raw.githubusercontent.com/MalteKiefer/invoicy/master/screenshots/screen3.png)
