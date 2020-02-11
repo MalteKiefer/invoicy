@@ -17,6 +17,12 @@ class Dialogs(Gtk.Box):
 
     def settingsdialog (self):
 
+        def set_active(self, widget):
+            if financetax_switch.get_active():
+                financetaxrate_entry.set_sensitive(True)
+            else:
+                financetaxrate_entry.set_sensitive(False)
+
         settings = Gio.Settings('com.github.maltekiefer.invoicy')
 
         dialog = Gtk.Dialog()
@@ -32,6 +38,9 @@ class Dialogs(Gtk.Box):
         grid_finance.props.margin_top = 20
         grid_finance.props.margin_bottom = 20
 
+        settings_label = Gtk.Label()
+        settings_label.set_markup(_("<big><b>Settings</b></big>"))
+
         financecurrency_label = Gtk.Label(_("Currency Symbole"), xalign=0)
         financecurrency_entry = Gtk.Entry()
         financecurrency_entry.set_text(settings.get_string('currency-symbole'))
@@ -44,16 +53,27 @@ class Dialogs(Gtk.Box):
         financetax_label = Gtk.Label(_("Show taxes on the invoice?"), xalign=0)
         financetax_switch = Gtk.Switch(halign=Gtk.Align.END)
         financetax_switch.set_active(settings.get_boolean('tax-on-invoice'))
+        financetaxrate_label = Gtk.Label(_("Tax rate (only numbers)"), xalign=0)
+        financetaxrate_entry = Gtk.Entry()
+        financetaxrate_entry.set_text(str(settings.get_uint('tax-rate')))
+        financetaxrate_entry.set_sensitive(False)
+        financetax_switch.connect("notify::active", set_active)
 
-        grid_finance.attach(financecurrency_label, 0, 1, 1, 1)
-        grid_finance.attach(financecurrency_entry, 1, 1, 1, 1)
-        grid_finance.attach(financecurrencyposition_label, 0, 2, 1, 1)
-        grid_finance.attach(financecurrencyposition_combo, 1, 2, 1, 1)
-        grid_finance.attach(financetax_label, 0, 3, 1, 1)
-        grid_finance.attach(financetax_switch, 1, 3, 1, 1)
+        if settings.get_boolean('tax-on-invoice'):
+            financetaxrate_entry.set_sensitive(True)
+
+        grid_finance.attach(settings_label, 0, 1, 2, 1)
+        grid_finance.attach(financecurrency_label, 0, 2, 1, 1)
+        grid_finance.attach(financecurrency_entry, 1, 2, 1, 1)
+        grid_finance.attach(financecurrencyposition_label, 0, 3, 1, 1)
+        grid_finance.attach(financecurrencyposition_combo, 1, 3, 1, 1)
+        grid_finance.attach(financetax_label, 0, 4, 1, 1)
+        grid_finance.attach(financetax_switch, 1, 4, 1, 1)
+        grid_finance.attach(financetaxrate_label, 0, 5, 1, 1)
+        grid_finance.attach(financetaxrate_entry, 1, 5, 1, 1)
         box = dialog.get_content_area()
 
-        box.add(grid_finance)  
+        box.add(grid_finance)
 
         dialog.show_all()
 
@@ -61,12 +81,15 @@ class Dialogs(Gtk.Box):
         financecurrency = financecurrency_entry.get_text()
         financecurrencyposition = financecurrencyposition_combo.get_active()
         financetax = financetax_switch.get_active()
+        financetaxrate = int(financetaxrate_entry.get_text())
         dialog.destroy()
 
         if return_code == Gtk.ResponseType.OK:
             settings.set_string ('currency-symbole', financecurrency)
             settings.set_uint ('currency-symbole-position', financecurrencyposition)
             settings.set_boolean ('tax-on-invoice', financetax)
+            settings.set_uint('tax-rate', financetaxrate)
+
 
     def aboutdialog(self):
         about_dialog = Gtk.AboutDialog()
@@ -103,4 +126,4 @@ class Dialogs(Gtk.Box):
         about_dialog.set_logo(GdkPixbuf.Pixbuf.new_from_file('assets/invoice.png'))
 
         about_dialog.run()
-        about_dialog.destroy() 
+        about_dialog.destroy()

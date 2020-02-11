@@ -15,6 +15,11 @@
 			<summary>Show tax on invoice</summary>
 			<description>Show tax on invoice</description>
 		</key>
+		<key name="tax-rate" type="u">
+			<default>0</default>
+			<summary>Tax rate</summary>
+			<description>Tax rate on the invoice</description>
+		</key>
 		<key name="company-name" type="s">
 			<default>""</default>
 			<summary>Company Name</summary>
