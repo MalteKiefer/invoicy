@@ -42,18 +42,11 @@ class Invoicy(Gtk.Window):
         dialog.add_button(button_text="Cancel", response_id=Gtk.ResponseType.CANCEL)
         dialog.add_button(button_text="Save", response_id=Gtk.ResponseType.OK)
 
-        grid = Gtk.Grid(column_spacing=10, row_spacing=10)
-        grid.props.margin_left = 20
-        grid.props.margin_right = 20
-        grid.props.margin_top = 20
-        grid.props.margin_bottom = 20
-
-        header = Gtk.Label()
-        header.set_markup(_("<big><b>Settings</b></big>"))
-        header_company = Gtk.Label()
-        header_company.set_markup(_("<b>Company</b>"))
-        finance_company = Gtk.Label()
-        finance_company.set_markup(_("<b>Finance</b>"))
+        grid_company = Gtk.Grid(column_spacing=10, row_spacing=10)
+        grid_company.props.margin_left = 20
+        grid_company.props.margin_right = 20
+        grid_company.props.margin_top = 20
+        grid_company.props.margin_bottom = 20
 
         companyname_label = Gtk.Label(_("Company"))
         companyname_entry = Gtk.Entry()
@@ -83,6 +76,27 @@ class Invoicy(Gtk.Window):
         companyvat_entry = Gtk.Entry()
         companyvat_entry.set_text(settings.get_string('company-vat'))
 
+        grid_company.attach(companyname_label, 0, 1, 1, 1)
+        grid_company.attach(companyname_entry, 1, 1, 1, 1)
+        grid_company.attach(companycontact_label, 0, 2, 1, 1)
+        grid_company.attach(companycontact_entry, 1, 2, 1, 1)
+        grid_company.attach(companystreet_label, 0, 3, 1, 1)
+        grid_company.attach(companystreet_entry, 1, 4, 1, 1)
+        grid_company.attach(companyzip_label, 0, 4, 1, 1)
+        grid_company.attach(companyzip_entry, 1, 4, 1, 1)
+        grid_company.attach(companycity_label, 0, 5, 1, 1)
+        grid_company.attach(companycity_entry, 1, 5, 1, 1)
+        grid_company.attach(companycountry_label, 0, 6, 1, 1)
+        grid_company.attach(companycountry_entry, 1, 6, 1, 1)
+        grid_company.attach(companyvat_label, 0, 7, 1, 1)
+        grid_company.attach(companyvat_entry, 1, 7, 1, 1)
+
+        grid_finance = Gtk.Grid(column_spacing=10, row_spacing=10)
+        grid_finance.props.margin_left = 20
+        grid_finance.props.margin_right = 20
+        grid_finance.props.margin_top = 20
+        grid_finance.props.margin_bottom = 20
+
         financecurrency_label = Gtk.Label(_("Currency Symbole"))
         financecurrency_entry = Gtk.Entry()
         financecurrency_entry.set_text(settings.get_string('currency-symbole'))
@@ -93,32 +107,29 @@ class Invoicy(Gtk.Window):
         financecurrencyposition_combo.insert(1, "1", _("Right"))
         financecurrencyposition_combo.set_active(settings.get_uint('currency-symbole-position'))
 
-        grid.add(header)
-        grid.attach(header_company, 0, 1, 2, 1)
+        grid_finance.attach(financecurrency_label, 0, 1, 1, 1)
+        grid_finance.attach(financecurrency_entry, 1, 1, 1, 1)
+        grid_finance.attach(financecurrencyposition_label, 0, 2, 1, 1)
+        grid_finance.attach(financecurrencyposition_combo, 1, 2, 1, 1)
 
-        grid.attach(companyname_label, 0, 2, 1, 1)
-        grid.attach(companyname_entry, 1, 2, 1, 1)
-        grid.attach(companycontact_label, 0, 3, 1, 1)
-        grid.attach(companycontact_entry, 1, 3, 1, 1)
-        grid.attach(companystreet_label, 0, 4, 1, 1)
-        grid.attach(companystreet_entry, 1, 4, 1, 1)
-        grid.attach(companyzip_label, 0, 5, 1, 1)
-        grid.attach(companyzip_entry, 1, 5, 1, 1)
-        grid.attach(companycity_label, 0, 6, 1, 1)
-        grid.attach(companycity_entry, 1, 6, 1, 1)
-        grid.attach(companycountry_label, 0, 7, 1, 1)
-        grid.attach(companycountry_entry, 1, 7, 1, 1)
-        grid.attach(companyvat_label, 0, 8, 1, 1)
-        grid.attach(companyvat_entry, 1, 8, 1, 1)
-
-        grid.attach(finance_company, 0, 9, 2, 1)
-        grid.attach(financecurrency_label, 0, 10, 1, 1)
-        grid.attach(financecurrency_entry, 1, 10, 1, 1)
-        grid.attach(financecurrencyposition_label, 0, 11, 1, 1)
-        grid.attach(financecurrencyposition_combo, 1, 11, 1, 1)
-
+        grid_settings = Gtk.Grid(column_spacing=10, row_spacing=10)
         box = dialog.get_content_area()
-        box.add(grid)
+        
+
+        stack = Gtk.Stack()
+        stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
+        stack.set_transition_duration(1000)
+
+        stack.add_titled(grid_company, "company", _("Company"))
+        stack.add_titled(grid_finance, "finance", _("Finance"))
+
+        stack_switcher = Gtk.StackSwitcher()
+        stack_switcher.set_stack(stack)
+
+        grid_settings.attach(stack_switcher, 0, 1, 1, 1)
+        grid_settings.attach(stack, 0, 2, 1, 1)
+
+        box.add(grid_settings)  
 
         dialog.show_all()
 
@@ -175,10 +186,6 @@ class Invoicy(Gtk.Window):
         vbox.pack_start(Gtk.ModelButton(_("About")), False, True, 2)
         self.popover.add(vbox)
         self.popover.set_position(Gtk.PositionType.BOTTOM)
-
-        label = Gtk.Label("test")
-
-        self.add(label)
 
     def open_sub_menu(self, button):
         self.popover.set_relative_to(button)
