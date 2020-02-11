@@ -8,7 +8,7 @@ Feel free to support my work:
 
 ![lib](http://img.shields.io/liberapay/receives/beli3ver.svg?logo=liberapay)
 
-### Installation
+## Installation
 
 ```bash
 git clone https://github.com/MalteKiefer/invoicy
@@ -18,13 +18,13 @@ sudo cp data/com.github.maltekiefer.invoicy.gschema.xml /usr/share/glib-2.0/sche
 sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
 ```
 
-### Run
+## Run
 
 ```bash
 python3 src/main.py
 ```
 
-### Screens
+## Screens
 
 ![](https://raw.githubusercontent.com/MalteKiefer/invoicy/master/screenshots/screen1.png)
 ![](https://raw.githubusercontent.com/MalteKiefer/invoicy/master/screenshots/screen2.png)
