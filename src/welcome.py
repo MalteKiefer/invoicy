@@ -25,17 +25,13 @@ class Welcome(Gtk.Box):
 
         # Welcome voices
         self.welcome.append("document-new", "Create Invoice", "Create a new invoice")
-        self.welcome.append("folder-documents-open", "Show invocies",
-                            "Show your invoices")
-        self.welcome.append("system-users", "Show customers",
-                            "Show your customers, add or delete one")
+
 
         self.welcome.connect("activated", self.on_welcome_activated)
 
         self.add(self.welcome)
 
     def on_welcome_activated(self, widget, index):
-        self.parent.parent.hbar.toggle_back()
         if index == 0:
             # Add invoice
             self.parent.stack.set_visible_child_name("invoice")

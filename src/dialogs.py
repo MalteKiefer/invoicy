@@ -8,10 +8,6 @@ _ = gettext.gettext
 gi.require_version('Gtk', '3.0')
 gi.require_version('Granite', '1.0')
 from gi.repository import Gtk, Gdk, Gio, GdkPixbuf
-try:
-    import constants as cn
-except ImportError:
-    import invoicy.constants as cn
 
 class Dialogs(Gtk.Box):
 
@@ -27,19 +23,12 @@ class Dialogs(Gtk.Box):
 
         dialog = Gtk.Dialog()
 
-        dialog.set_default_size(300, 300)
+        dialog.set_default_size(100, 300)
         dialog.set_modal(True)
+        dialog.set_resizable(False)
+        dialog.set_border_width(6)
         dialog.add_button(button_text="Cancel", response_id=Gtk.ResponseType.CANCEL)
         dialog.add_button(button_text="Save", response_id=Gtk.ResponseType.OK)
-
-        grid_finance = Gtk.Grid(column_spacing=10, row_spacing=10)
-        grid_finance.props.margin_left = 20
-        grid_finance.props.margin_right = 20
-        grid_finance.props.margin_top = 20
-        grid_finance.props.margin_bottom = 20
-
-        settings_label = Gtk.Label()
-        settings_label.set_markup(_("<big><b>Settings</b></big>"))
 
         financecurrency_label = Gtk.Label(_("Currency Symbole"), xalign=0)
         financecurrency_entry = Gtk.Entry()
@@ -58,22 +47,75 @@ class Dialogs(Gtk.Box):
         financetaxrate_entry.set_text(str(settings.get_uint('tax-rate')))
         financetaxrate_entry.set_sensitive(False)
         financetax_switch.connect("notify::active", set_active)
+        invoicedateformat_label = Gtk.Label(_("Invoice Date Format (%d %m %y)"),
+                                            xalign=0)
+        invoicedateformat_entry = Gtk.Entry()
+        invoicedateformat_entry.set_text(
+            settings.get_string('invoice-date-format'))
+
+        invoiceduedays_label = Gtk.Label(
+            _("Number of days until the invoice is due"), xalign=0)
+        invoiceduedays_entry = Gtk.Entry()
+        invoiceduedays_entry.set_text(
+            str(settings.get_uint('invoice-due-days')))
 
         if settings.get_boolean('tax-on-invoice'):
             financetaxrate_entry.set_sensitive(True)
 
-        grid_finance.attach(settings_label, 0, 1, 2, 1)
-        grid_finance.attach(financecurrency_label, 0, 2, 1, 1)
-        grid_finance.attach(financecurrency_entry, 1, 2, 1, 1)
-        grid_finance.attach(financecurrencyposition_label, 0, 3, 1, 1)
-        grid_finance.attach(financecurrencyposition_combo, 1, 3, 1, 1)
-        grid_finance.attach(financetax_label, 0, 4, 1, 1)
-        grid_finance.attach(financetax_switch, 1, 4, 1, 1)
-        grid_finance.attach(financetaxrate_label, 0, 5, 1, 1)
-        grid_finance.attach(financetaxrate_entry, 1, 5, 1, 1)
+        grid_currency = Gtk.Grid(column_spacing=10, row_spacing=10)
+        grid_currency.props.margin_left = 20
+        grid_currency.props.margin_right = 20
+        grid_currency.props.margin_top = 20
+        grid_currency.props.margin_bottom = 20
+
+        grid_tax = Gtk.Grid(column_spacing=10, row_spacing=10)
+        grid_tax.props.margin_left = 20
+        grid_tax.props.margin_right = 20
+        grid_tax.props.margin_top = 20
+        grid_tax.props.margin_bottom = 20
+
+        grid_invoice = Gtk.Grid(column_spacing=10, row_spacing=10)
+        grid_invoice.props.margin_left = 20
+        grid_invoice.props.margin_right = 20
+        grid_invoice.props.margin_top = 20
+        grid_invoice.props.margin_bottom = 20
+
+        grid_currency.attach(financecurrency_label, 0, 1, 1, 1)
+        grid_currency.attach(financecurrency_entry, 1, 1, 1, 1)
+        grid_currency.attach(financecurrencyposition_label, 0, 2, 1, 1)
+        grid_currency.attach(financecurrencyposition_combo, 1, 2, 1, 1)
+
+        grid_tax.attach(financetax_label, 0, 1, 1, 1)
+        grid_tax.attach(financetax_switch, 1, 1, 1, 1)
+        grid_tax.attach(financetaxrate_label, 0, 2, 1, 1)
+        grid_tax.attach(financetaxrate_entry, 1, 2, 1, 1)
+
+        grid_invoice.attach(invoicedateformat_label, 0, 1, 1, 1)
+        grid_invoice.attach(invoicedateformat_entry, 1, 1, 1, 1)
+        grid_invoice.attach(invoiceduedays_label, 0, 2, 1, 1)
+        grid_invoice.attach(invoiceduedays_entry, 1, 2, 1, 1)
+
+        stack = Gtk.Stack()
+        stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
+        stack.set_transition_duration(1000)
+        stack.set_halign(Gtk.Align.CENTER)
+
+        stack.add_titled(grid_currency, "check", "Currency")
+        stack.add_titled(grid_invoice, "label", "Invoice")
+        stack.add_titled(grid_tax, "label", "Tax")
+
+        stack_switcher = Gtk.StackSwitcher()
+        stack_switcher.set_stack(stack)
+        stack_switcher.set_halign(Gtk.Align.CENTER)
+
         box = dialog.get_content_area()
 
-        box.add(grid_finance)
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
+        vbox.set_valign(Gtk.Align.CENTER)
+        box.add(vbox)
+
+        vbox.pack_start(stack_switcher, False, False, 0)
+        vbox.pack_start(stack, False, False, 0)
 
         dialog.show_all()
 

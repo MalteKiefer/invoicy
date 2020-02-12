@@ -20,6 +20,16 @@
 			<summary>Tax rate</summary>
 			<description>Tax rate on the invoice</description>
 		</key>
+		<key name="invoice-date-format" type="s">
+			<default>"%d/%m/%Y"</default>
+			<summary>Invoice Date Format</summary>
+			<description>The date format for the invoice</description>
+		</key>
+		<key name="invoice-due-days" type="u">
+			<default>14</default>
+			<summary>Invoice Due Days</summary>
+			<description>The days until an invoice is due</description>
+		</key>
 		<key name="company-name" type="s">
 			<default>""</default>
 			<summary>Company Name</summary>

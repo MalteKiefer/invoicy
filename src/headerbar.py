@@ -40,25 +40,11 @@ class Headerbar(Gtk.HeaderBar):
         self.settings_popover.add(self.settings_popover_vbox)
         self.settings_popover.set_position(Gtk.PositionType.BOTTOM)
 
-        self.back = Gtk.Button()
-        self.back.add(Gtk.Arrow(Gtk.ArrowType.LEFT, Gtk.ShadowType.NONE))
-        self.back.connect("clicked", self.on_back_clicked)
-        self.pack_start(self.back)
-
         # new invoice
         self.add_invoice = Gtk.Button(None,image=Gtk.Image.new_from_gicon(Gio.ThemedIcon(name="document-new"), Gtk.IconSize.LARGE_TOOLBAR))
         self.add_invoice.connect("clicked", self.on_new_invoice_clicked )
         self.pack_start(self.add_invoice)
 
-        self.show_customers = Gtk.Button(None,image=Gtk.Image.new_from_gicon(Gio.ThemedIcon(name="system-users"), Gtk.IconSize.LARGE_TOOLBAR))
-        self.pack_start(self.show_customers)
-
-    def on_back_clicked(self, widget):
-        self.back.hide()
-        self.parent.stack.stack.set_visible_child_name("welcome")
-
-    def toggle_back(self):
-        self.back.show()
 
     def on_menu_clicked(self, button):
         self.settings_popover.set_relative_to(button)
