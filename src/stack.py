@@ -10,10 +10,13 @@ try:
     import constants as cn
     import welcome as wl
     import add_invoice as ainv
+    import add_customer as acus
 except ImportError:
     import invoicy.constants as cn
     import invoicy.welcome as wl
     import invoicy.add_invoice as ainv
+    import invoicy.add_customer as acus
+
 
 class Stack(Gtk.Box):
 
@@ -25,14 +28,15 @@ class Stack(Gtk.Box):
         self.parent = parent
 
         self.stack = Gtk.Stack()
-        self.stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
+        self.stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT)
         self.stack.set_transition_duration(1000)
 
         self.welcome = wl.Welcome(self)
-        self.add_cus = ainv.Invoice(self)
+        self.add_customer = acus.Customer(self)
         self.add_invoice = ainv.Invoice(self)
 
         self.stack.add_titled(self.welcome, "welcome", "Welcome")
         self.stack.add_titled(self.add_invoice, "invoice", "Invoice")
+        self.stack.add_titled(self.add_customer, "customer", "Customer")
 
         self.pack_start(self.stack, True, True, 0)

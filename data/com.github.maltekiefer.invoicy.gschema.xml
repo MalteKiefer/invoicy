@@ -30,6 +30,11 @@
 			<summary>Invoice Due Days</summary>
 			<description>The days until an invoice is due</description>
 		</key>
+		<key name="invoice-note" type="b">
+			<default>false</default>
+			<summary>Invoice Note</summary>
+			<description>Create a note on the invoice</description>
+		</key>
 		<key name="company-name" type="s">
 			<default>""</default>
 			<summary>Company Name</summary>

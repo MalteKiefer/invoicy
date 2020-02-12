@@ -63,6 +63,9 @@ class Dialogs(Gtk.Box):
         invoiceduedays_entry = Gtk.Entry()
         invoiceduedays_entry.set_text(
             str(settings.get_uint('invoice-due-days')))
+        invoicenote_label= Gtk.Label(_("Note at the invoice?"), xalign=0)
+        invoicenote_switch = Gtk.Switch(halign=Gtk.Align.END)
+        invoicenote_switch.set_active(settings.get_boolean('invoice-note'))
 
         if settings.get_boolean('tax-on-invoice'):
             financetaxrate_entry.set_sensitive(True)
@@ -99,6 +102,8 @@ class Dialogs(Gtk.Box):
         grid_invoice.attach(invoicedateformat_entry, 1, 1, 1, 1)
         grid_invoice.attach(invoiceduedays_label, 0, 2, 1, 1)
         grid_invoice.attach(invoiceduedays_entry, 1, 2, 1, 1)
+        grid_invoice.attach(invoicenote_label, 0, 3, 1, 1)
+        grid_invoice.attach(invoicenote_switch, 1, 3, 1, 1)
 
         stack = Gtk.Stack()
         stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
@@ -129,6 +134,9 @@ class Dialogs(Gtk.Box):
         financecurrencyposition = financecurrencyposition_combo.get_active()
         financetax = financetax_switch.get_active()
         financetaxrate = int(financetaxrate_entry.get_text())
+        invoicedate = invoicedateformat_entry.get_text()
+        invoicedue = int(invoiceduedays_entry.get_text())
+        invoicenote = invoicenote_switch.get_active()
         dialog.destroy()
 
         if return_code == Gtk.ResponseType.OK:
@@ -136,6 +144,9 @@ class Dialogs(Gtk.Box):
             settings.set_uint ('currency-symbole-position', financecurrencyposition)
             settings.set_boolean ('tax-on-invoice', financetax)
             settings.set_uint('tax-rate', financetaxrate)
+            settings.set_string('invoice-date-format', invoicedate)
+            settings.set_uint('invoice-due-days', invoicedue)
+            settings.set_boolean('invoice-note', invoicenote)
 
 
     def companydialog(self):
@@ -192,14 +203,14 @@ class Dialogs(Gtk.Box):
         grid_company.attach(companycontact_entry, 1, 3, 1, 1)
         grid_company.attach(companystreet_label, 0, 4, 1, 1)
         grid_company.attach(companystreet_entry, 1, 4, 1, 1)
-        grid_company.attach(companyzip_label, 0, 4, 1, 1)
-        grid_company.attach(companyzip_entry, 1, 4, 1, 1)
-        grid_company.attach(companycity_label, 0, 5, 1, 1)
-        grid_company.attach(companycity_entry, 1, 5, 1, 1)
-        grid_company.attach(companycountry_label, 0, 6, 1, 1)
-        grid_company.attach(companycountry_entry, 1, 6, 1, 1)
-        grid_company.attach(companyvat_label, 0, 7, 1, 1)
-        grid_company.attach(companyvat_entry, 1, 7, 1, 1)
+        grid_company.attach(companyzip_label, 0, 5, 1, 1)
+        grid_company.attach(companyzip_entry, 1, 5, 1, 1)
+        grid_company.attach(companycity_label, 0, 6, 1, 1)
+        grid_company.attach(companycity_entry, 1, 6, 1, 1)
+        grid_company.attach(companycountry_label, 0, 7, 1, 1)
+        grid_company.attach(companycountry_entry, 1, 7, 1, 1)
+        grid_company.attach(companyvat_label, 0, 8, 1, 1)
+        grid_company.attach(companyvat_entry, 1, 8, 1, 1)
         box = dialog.get_content_area()
 
         box.add(grid_company)
