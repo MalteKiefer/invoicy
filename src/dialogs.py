@@ -8,6 +8,11 @@ _ = gettext.gettext
 gi.require_version('Gtk', '3.0')
 gi.require_version('Granite', '1.0')
 from gi.repository import Gtk, Gdk, Gio, GdkPixbuf
+try:
+    import constants as cn
+except ImportError:
+    import invoicy.constants as cn
+
 
 class Dialogs(Gtk.Box):
 

@@ -29,3 +29,7 @@ python3 src/main.py
 ![](https://raw.githubusercontent.com/MalteKiefer/invoicy/master/screenshots/screen1.png)
 ![](https://raw.githubusercontent.com/MalteKiefer/invoicy/master/screenshots/screen2.png)
 ![](https://raw.githubusercontent.com/MalteKiefer/invoicy/master/screenshots/screen3.png)
+![](https://raw.githubusercontent.com/MalteKiefer/invoicy/master/screenshots/screen4.png)
+![](https://raw.githubusercontent.com/MalteKiefer/invoicy/master/screenshots/screen5.png)
+![](https://raw.githubusercontent.com/MalteKiefer/invoicy/master/screenshots/screen6.png)
+
