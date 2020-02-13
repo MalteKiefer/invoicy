@@ -6,7 +6,9 @@
 ## Donations
 Feel free to support my work:
 
-![lib](http://img.shields.io/liberapay/receives/beli3ver.svg?logo=liberapay)
+<a href="https://liberapay.com/beli3ver/"><img src="http://img.shields.io/liberapay/receives/beli3ver.svg?logo=liberapay" /></a>
+
+<a href="https://paypal.me/maltekiefer"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" /></a>
 
 ## Installation
 
